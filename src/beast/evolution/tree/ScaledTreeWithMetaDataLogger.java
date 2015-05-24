@@ -28,7 +28,7 @@ public class ScaledTreeWithMetaDataLogger  extends TreeWithMetaDataLogger implem
 	public void log(int nSample, PrintStream out) {
 		// make sure we get the current version of the inputs
         Tree tree = (Tree) treeInput.get().getCurrent();
-        Function metadata = parameterInput.get();
+        Function metadata = parameterInput.get().get(0);
         if (metadata instanceof StateNode) {
         	metadata = ((StateNode) metadata).getCurrent();
         }
@@ -65,7 +65,7 @@ public class ScaledTreeWithMetaDataLogger  extends TreeWithMetaDataLogger implem
         if (someMetaDataNeedsLogging) {
 	        buf.append("[");
 	        if (metadata != null) {
-	            buf.append(metaDataLabel);
+	            buf.append(((BEASTObject)metadata).getID());
 	            buf.append(metadata.getArrayValue(node.labelNr));
 	            if (branchRateModel != null) {
 	                buf.append(",");
