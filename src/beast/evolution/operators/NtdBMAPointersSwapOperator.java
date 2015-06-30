@@ -34,8 +34,8 @@ public class NtdBMAPointersSwapOperator extends Operator {
     public Input<DPValuable> dpValInput = new Input<DPValuable>("dpVal", "A valuable that stores information about the category assignments", Input.Validate.REQUIRED);
     public Input<Alignment> alignmentInput = new Input<Alignment>("alignment", "A valuable that stores information about the category assignments", Input.Validate.REQUIRED);
 
-    private DPValuable dpVal;
-    private Alignment alignment;
+    protected DPValuable dpVal;
+    protected Alignment alignment;
 
     public void initAndValidate(){
         dpVal = dpValInput.get();

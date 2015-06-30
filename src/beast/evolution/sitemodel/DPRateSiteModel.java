@@ -75,6 +75,8 @@ public class DPRateSiteModel extends DPSingleAlignSiteModel implements PluginLis
         }
 
     }
+    
+
 
     public int getPrevCluster(int index){
         return ratePointers.storedIndexInList(index,rateList);
@@ -102,6 +104,10 @@ public class DPRateSiteModel extends DPSingleAlignSiteModel implements PluginLis
         return rateList.getRemovedIndex();
     }
 
+    public int getLastAddedIndex(){
+        return rateList.getLastAddedIndex();
+    }
+    
     public int getDirtySiteModelIndex(){
         return rateList.getDirtyIndex();
     }

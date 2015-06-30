@@ -190,6 +190,9 @@ public class DPValuable extends CalculationNode implements Function, Loggable{
         int index;
         for(int i = 0; i < pointers.getDimension();i++ ){
             index = pointers.indexInList(i,paramList);
+            if(index == -1){
+                System.out.println(i+" "+pointers.getParameter(i)+" "+paramList);
+            }
             clusterSites[index][clusterCounts[index]] = i;
             clusterCounts[index]++;
         }
@@ -203,6 +206,22 @@ public class DPValuable extends CalculationNode implements Function, Loggable{
         pointersChanged = false;
     }
 
+    public int getPrevCategory(int pointerIndex){
+        return pointers.storedIndexInList(pointerIndex,paramList);
+    }
+
+    public int getCurrCategory(int pointerIndex){
+        return pointers.indexInList(pointerIndex,paramList);
+    }
+
+    public int getPrevCategoryIDNumber(int pointerIndex){
+        return pointers.getStoredParameterIDNumber(pointerIndex);
+    }
+
+    public int getCurrCategoryIDNumber(int pointerIndex){
+        return pointers.getParameterIDNumber(pointerIndex);
+    }
+
     public int getPointerDimension(){
         return pointers.getDimension();
     }
@@ -213,6 +232,22 @@ public class DPValuable extends CalculationNode implements Function, Loggable{
     }
 
     public void log(int nSample, PrintStream out){
+        //
+        /*System.out.println(clusterSites.length);
+        String s ="{";
+        for(int i =0; i < clusterSites.length;i++){
+            s+=clusterSites[i].length+": ";
+            for(int j = 0; j < clusterCounts[i]; j++){
+                s+=clusterSites[i][j];
+                if(j == clusterSites[i].length - 1){
+                    s+=";";
+                } else{
+                    s+=",";
+                }
+            }
+
+        }
+        System.out.println(s);*/
         out.print(paramList.getDimension() + "\t");
     }
 

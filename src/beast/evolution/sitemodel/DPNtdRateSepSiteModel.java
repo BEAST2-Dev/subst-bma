@@ -16,7 +16,7 @@ import java.util.Arrays;
 @Description("Manages a list of simple gamma site models. Can create and remove site models on the fly. Used when independent DPPs are applied to the partitioning schemes of the substitution model and rate.")
 public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
 
-    private int lastDirtySite = -1;
+	protected int lastDirtySite = -1;
     public static final int NTDBMA = 0;
     public static final int RATES = 1;
     DPNtdBMA dpNtdBMA;
@@ -62,9 +62,9 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
         "dpValRate",
         "Dirichlet process valuable object that records the info of clustering"
     );
-    private int eltCount;
-    private int substClusterLimit;
-    private int ratesClusterLimit;
+    protected int eltCount;
+    protected int substClusterLimit;
+    protected int ratesClusterLimit;
     public QuietSiteModel[][] siteModelsMatrix;
     public QuietSiteModel[][] storedSiteModelsMatrix;
     int[][] siteModelWeights;
@@ -173,6 +173,9 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
         return siteModelsMatrix[clusterMap[NTDBMA][siteIndex]][clusterMap[RATES][siteIndex]].getRateParameter();
     }
 
+    public int getLastAddedIndex(){
+        throw new RuntimeException("Not applicable!");
+    }
     int[] clusterSites;
 
     void handleSplit(int changedInput) throws Exception{

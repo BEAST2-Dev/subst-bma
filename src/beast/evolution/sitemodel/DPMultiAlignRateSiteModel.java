@@ -149,6 +149,10 @@ public class DPMultiAlignRateSiteModel extends DPMultiAlignSiteModel {
     }
 
 
+    public int getLastAddedIndex(){
+        throw new RuntimeException("Not applicable!");
+    }
+    
     protected void addSiteModel(){
         /*for(int i = 0; i < siteModelCount.length; i++){
                 System.out.print("siteModelCount, "+siteModelCount[i].size()+": ");

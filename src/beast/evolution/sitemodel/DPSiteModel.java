@@ -59,6 +59,8 @@ public abstract class DPSiteModel extends CalculationNode implements PluginList,
 
     protected abstract void addSiteModel();
 
+    public abstract int getLastAddedIndex();
+
     protected void removeSiteModel(int index){
         siteModels.remove(index);
         //System.err.println("removeSiteModel: "+index);

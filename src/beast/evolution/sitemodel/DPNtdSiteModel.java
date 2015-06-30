@@ -73,7 +73,10 @@ public class DPNtdSiteModel extends DPSingleAlignSiteModel {
         return dpNtdBMA.getLastDirtySites();
     }
 
-
+    public int getLastAddedIndex(){
+        return dpNtdBMA.getLastAddedIndex();
+    }
+    
     public int getSiteModelCount(){
         return siteModels.size();
     }

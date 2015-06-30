@@ -5,7 +5,7 @@ import beast.core.Description;
 /**
  * @author Chieh-Hsi Wu
  */
-@Description("Types of changes that can occcur.")
+@Description("Types of changes that can occur.")
 public enum ChangeType {
     POINTER_CHANGED,
     MULTIPLE_POINTERS_CHANGED,
@@ -15,6 +15,8 @@ public enum ChangeType {
     ADDED,
     SPLIT,
     MERGE,
+    SPLIT_AND_VALUE_CHANGE,
+    MERGE_AND_VALUE_CHANGE,
     ALL,
     NONE
 

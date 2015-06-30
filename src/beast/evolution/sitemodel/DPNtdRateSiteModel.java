@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 @Description("Manages a list of simple gamma site models. Can create and remove site models on the fly. Used when a DPP is applied to the partitioning scheme of the substitution model and rate together.")
 public class DPNtdRateSiteModel extends DPRateSiteModel{
-    private DPNtdBMA dpNtdBMA;
+    protected DPNtdBMA dpNtdBMA;
     public Input<DPNtdBMA> dpNtdBMAInput = new Input<DPNtdBMA>(
             "ntdBMAList",
             "array which points a set of unique parameter values",

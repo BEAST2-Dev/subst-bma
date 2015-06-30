@@ -61,6 +61,8 @@ public class QuietSiteModel extends SiteModel {
     int gammaCatCount;
     SubstitutionModel.Base substitutionModel;
 
+    public QuietSiteModel(){}
+
     public QuietSiteModel(SubstitutionModel substModel,
                           QuietRealParameter muParameter) throws Exception{
         this(substModel,

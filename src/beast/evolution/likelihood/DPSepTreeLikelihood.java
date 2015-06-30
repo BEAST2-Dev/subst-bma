@@ -20,8 +20,8 @@ import javax.sound.midi.SysexMessage;
 public class DPSepTreeLikelihood extends DPTreeLikelihood{
 
     protected DPNtdRateSepSiteModel dpSiteModel;
-    private NewWVTreeLikelihood[][] treeLiksMatrix;
-    private NewWVTreeLikelihood[][] storedTreeLiksMatrix;
+    protected NewWVTreeLikelihood[][] treeLiksMatrix;
+    protected NewWVTreeLikelihood[][] storedTreeLiksMatrix;
     protected ChangeType changeType = ChangeType.ALL;
 
 

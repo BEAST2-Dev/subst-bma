@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.PrintStream;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.w3c.dom.Node;
 
 /**
@@ -17,8 +18,7 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
                 new Input<List<QuietRealParameter>>(
                         "parameter",
                         "refrence to a parameter",
-                        new ArrayList<QuietRealParameter>(),
-                        Input.Validate.REQUIRED
+                        new ArrayList<QuietRealParameter>()
                 );
 
     private ArrayList<QuietRealParameter> parameterList;
@@ -44,14 +44,32 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
         }
     }
 
-
+    private int lastAddedIndex;
     public void addParameter(QuietRealParameter parameter){
 
         startEditing(null);
         parameter.setIDNumber(createID());
+        lastAddedIndex = parameterList.size();
         parameterList.add(parameter);
         changeType = ChangeType.ADDED;
+
         //System.out.println("add parameter: "+getID()+" "+getDimension());//+" " +toString());
+    }
+
+
+
+    public void addParameter(int pIndex, QuietRealParameter parameter){
+        startEditing(null);
+        parameter.setIDNumber(createID());
+        lastAddedIndex = pIndex;
+        parameterList.add(pIndex,parameter);
+        changeType = ChangeType.ADDED;
+
+    }
+
+    public int getLastAddedIndex(){
+        //System.out.println(getID()+": "+lastAddedIndex+" "+parameterList.get(lastAddedIndex).getIDNumber());
+        return lastAddedIndex;
     }
 
     ArrayList<Integer> idPool = new ArrayList<Integer>();
@@ -80,12 +98,25 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
 
 
 
-    private void addParameterQuietly(QuietRealParameter parameter){
+
+    public void addParameterQuietly(QuietRealParameter parameter){
         parameterList.add(parameter);
         changeType = ChangeType.ADDED;
         //System.err.println(getID()+":added");
 
     }
+
+    public void removeParameter(QuietRealParameter p){
+        startEditing(null);
+        //System.out.println("size: "+parameterList.size());
+        storeID(p.getIDNumber());
+        parameterList.remove(p);
+        changeType = ChangeType.REMOVED;
+        removedIndex = storedParameterList.indexOf(p);
+        //System.out.println(getID()+": removed "+getDimension()+" "+toString());
+    }
+
+
     public void removeParameter(int pIndex){
         startEditing(null);
         //System.out.println("size: "+parameterList.size());
@@ -94,8 +125,14 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
         changeType = ChangeType.REMOVED;
         removedIndex = pIndex;
         //System.out.println(getID()+": removed "+getDimension()+" "+toString());
-        //throw new RuntimeException("stopping fucking with my code!");
     }
+
+    public void removeParameterQuietly(int pIndex){
+        storeID(parameterList.get(pIndex).getIDNumber());
+        parameterList.remove(pIndex);
+        removedIndex = pIndex;
+    }
+
     public void setValue(int pIndex, int dim, double value) {
         startEditing(null);
 
@@ -104,18 +141,104 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
         changedIndex = pIndex;
         changeType = ChangeType.VALUE_CHANGED;
         //System.out.println(getID()+": changed "+changedIndex);
-        //throw new RuntimeException("stopping fucking with my code!");
+    }
+
+    public void setValues(int pIndex, Double[] values) {
+        startEditing(null);
+        for(int i = 0; i < values.length; i++){
+            parameterList.get(pIndex).setValueQuietly(i,values[i]);
+        }
+        parameterList.get(pIndex).setEverythingDirty(true);
+        changedIndex = pIndex;
+        changeType = ChangeType.VALUE_CHANGED;
+        //System.out.println(getID()+": changed "+changedIndex);
     }
 
     public void splitParameter(int pIndex, QuietRealParameter parameter){
         startEditing(null);
         parameter.setIDNumber(createID());
-        parameterList.add(parameter);        
+        parameterList.add(parameter);
         changedIndex = pIndex;
+        lastAddedIndex = parameterList.size() - 1;
         changeType = ChangeType.SPLIT;
 
     }
 
+    public void splitParameter(int pIndex, int newPIndex, double newValue)throws Exception{
+        startEditing(null);
+        QuietRealParameter newParameter = new QuietRealParameter(new Double[]{newValue});
+        newParameter.setBounds(getLower(), getUpper());
+
+        newParameter.setIDNumber(createID());
+        parameterList.add(newPIndex,newParameter);
+        changedIndex = pIndex;
+        lastAddedIndex = newPIndex;
+        //System.out.println("newPIndexID:  "+newParameter.getIDNumber());
+        changeType = ChangeType.SPLIT;
+
+    }
+
+    public void splitParameter(int pIndex, int newPIndex, Double[] newValue) throws Exception{
+        startEditing(null);
+        QuietRealParameter newParameter = new QuietRealParameter(newValue);
+        newParameter.setBounds(getLower(), getUpper());
+
+        newParameter.setIDNumber(createID());
+        parameterList.add(newPIndex, newParameter);
+        changedIndex = pIndex;
+        lastAddedIndex = newPIndex;
+        changeType = ChangeType.SPLIT;
+
+    }
+
+    public void splitParameter(int pIndex, double value1, int newPIndex, double value2) throws Exception{
+        startEditing(null);
+        QuietRealParameter newParameter = new QuietRealParameter(new Double[]{value2});
+        newParameter.setBounds(getLower(), getUpper());
+
+        newParameter.setIDNumber(createID());
+        setValue(pIndex,0, value1);
+        parameterList.add(newPIndex, newParameter);
+        //System.out.println("newPIndexID:  "+newParameter.getIDNumber()+" "+newPIndex);
+        changedIndex = pIndex;
+        lastAddedIndex = newPIndex;
+        changeType = ChangeType.SPLIT_AND_VALUE_CHANGE;
+
+    }
+
+
+
+    public void splitParameter(int pIndex, int dim, double value1, int newPIndex, Double[] values2) throws Exception{
+        startEditing(null);
+        QuietRealParameter newParameter = new QuietRealParameter(values2);
+        newParameter.setBounds(getLower(), getUpper());
+        newParameter.setIDNumber(createID());
+        setValue(pIndex,dim, value1);
+        parameterList.add(newPIndex, newParameter);
+        changedIndex = pIndex;
+        lastAddedIndex = newPIndex;
+        changeType = ChangeType.SPLIT_AND_VALUE_CHANGE;
+
+    }
+
+    public void splitParameter(int pIndex,  Double[] values1, int newPIndex, Double[] values2) throws Exception{
+        startEditing(null);
+        QuietRealParameter newParameter = new QuietRealParameter(values2);
+        newParameter.setBounds(getLower(), getUpper());
+
+        newParameter.setIDNumber(createID());
+        setValues(pIndex,values1);
+        parameterList.add(newPIndex, newParameter);
+
+        changedIndex = pIndex;
+        lastAddedIndex = newPIndex;
+        changeType = ChangeType.SPLIT_AND_VALUE_CHANGE;
+    }
+
+    /*
+     * @param pIndex1 The index of the parameter to be removed
+     * @param pIndex The index of the parameter that is retained.
+     */
     public void mergeParameter(int pIndex1, int pIndex2){
         startEditing(null);
         storeID(parameterList.get(pIndex1).getIDNumber());
@@ -125,6 +248,37 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
         changeType = ChangeType.MERGE;
     }
 
+    public void mergeParameter(int pIndex1, int pIndex2, double newValue){
+        startEditing(null);
+        storeID(parameterList.get(pIndex1).getIDNumber());
+        setValue(pIndex2,0,newValue);
+        parameterList.remove(pIndex1);
+        changedIndex = pIndex2 < pIndex1? pIndex2:(pIndex2-1);
+        removedIndex = pIndex1;
+        changeType = ChangeType.MERGE_AND_VALUE_CHANGE;
+    }
+
+    public void mergeParameter(int pIndex1, int pIndex2, int dim, double newValue){
+        startEditing(null);
+        storeID(parameterList.get(pIndex1).getIDNumber());
+        setValue(pIndex2,dim,newValue);
+        parameterList.remove(pIndex1);
+        changedIndex = pIndex2 < pIndex1? pIndex2:(pIndex2-1);
+        removedIndex = pIndex1;
+        changeType = ChangeType.MERGE_AND_VALUE_CHANGE;
+    }
+
+    public void mergeParameter(int pIndex1, int pIndex2, Double[] newValues){
+        startEditing(null);
+        storeID(parameterList.get(pIndex1).getIDNumber());
+        setValues(pIndex2, newValues);
+        parameterList.remove(pIndex1);
+        changedIndex = pIndex2 < pIndex1? pIndex2:(pIndex2-1);
+        removedIndex = pIndex1;
+        changeType = ChangeType.MERGE_AND_VALUE_CHANGE;
+    }
+
+
     public int getDirtyIndex(){
         //System.out.println(getID()+changedIndex);
         return changedIndex;
@@ -132,6 +286,11 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
 
     public int getDirtyParameterIDNumber(){
         return parameterList.get(getDirtyIndex()).getIDNumber();
+    }
+
+    public int getParameterIDNumber(int index){
+
+        return parameterList.get(index).getIDNumber();
     }
 
 
@@ -143,9 +302,25 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
         return idPool.get(idPool.size() - 1);
     }
 
+    public double getValue(int pIndex){
+        //System.err.println(pIndex);
+        return parameterList.get(pIndex).getValue();
+
+    }
+
     public double getValue(int pIndex, int dim) {
+        //System.out.println(pIndex+" "+dim);
         return parameterList.get(pIndex).getValue(dim);
 
+    }
+
+    public Double[] getValues(int pIndex){
+        Double[] values = new Double[parameterList.get(pIndex).getDimension()];
+        for(int i = 0;i < values.length;i++){
+            values[i] = parameterList.get(pIndex).getValue(i);
+        }
+
+        return values;
     }
 
     public double getUpper(){
@@ -201,7 +376,10 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
 
     }
 
+
+
     public void restore(){
+        setEverythingDirty(false);
         //System.err.println("restore, storedListSize: "+storedParameterList.size());
         hasStartedEditing = false;
         newIDCount = storedNewIDCount;
@@ -237,7 +415,7 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
         setSomethingIsDirty(isDirty);
         //System.err.println("list size: "+parameterList.size());
         for(Parameter parameter:parameterList){
-            ((Parameter.Base)parameter).setEverythingDirty(isDirty);
+            ((StateNode)parameter).setEverythingDirty(isDirty);
         }
         changeType = ChangeType.ALL;
 
@@ -246,6 +424,15 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
     public int indexOf(RealParameter param){
         return parameterList.indexOf(param);
     }
+
+    public int storedIndexOf(RealParameter param){
+        if(somethingIsDirty())
+            return storedParameterList.indexOf(param);
+        else
+            return parameterList.indexOf(param);
+    }
+
+
 
     public double getArrayValue(){
         throw new RuntimeException("As suggested by the name, this class represents a list, so it's not appropriate to return a single value");
@@ -292,6 +479,11 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
     public void log(int nSample, PrintStream out) {
         ParameterList paramList = (ParameterList) getCurrent();
         int dim = paramList.getDimension();
+        if(dim == 0){
+            out.print("-\t");
+            return;
+        }
+
         for(int i = 0; i < dim; i++){
             paramList.getParameter(i).log(nSample,out);
         }
@@ -305,6 +497,11 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
     @Override
     public void init(PrintStream out) throws Exception {
         int dimParam = getDimension();
+        if(dimParam == 0){
+            out.print(getID()+"\t");
+            return;
+        }
+
         for (int iParam = 0; iParam < dimParam; iParam++) {
             int dimValue = getParameter(iParam).getDimension();
             for(int iValue = 0; iValue < dimValue; iValue++){
@@ -333,11 +530,15 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
     }
 
     public int scale(double fScale) throws Exception{
-        for(RealParameter parameter:parameterList){
-            parameter.scale(fScale);
+        if(parameterList.size() > 0){
+            for(RealParameter parameter:parameterList){
+                parameter.scale(fScale);
+            }
+            changeType = ChangeType.ALL;
+            return getDimension()*getParameterDimension();
+        }else{
+            return 0;
         }
-        changeType = ChangeType.ALL;
-        return getDimension()*getParameterDimension();
     }
 
 

@@ -24,8 +24,8 @@ public class SepTempWVTreeLikelihood extends TempWVTreeLikelihood{
             Input.Validate.REQUIRED
     );
 
-    private DPNtdRateSepSiteModel dpNtdRateSepSiteModel;
-    private SwitchingNtdBMA substModel;
+    protected DPNtdRateSepSiteModel dpNtdRateSepSiteModel;
+    protected SwitchingNtdBMA substModel;
 
     public void initAndValidate() throws Exception{
         super.initAndValidate();

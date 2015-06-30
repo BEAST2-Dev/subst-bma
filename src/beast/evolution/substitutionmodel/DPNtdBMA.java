@@ -2,7 +2,6 @@ package beast.evolution.substitutionmodel;
 
 import beast.core.*;
 import beast.core.parameter.*;
-import beast.evolution.sitemodel.SiteModel;
 
 import java.util.ArrayList;
 
@@ -34,43 +33,32 @@ public class DPNtdBMA extends CalculationNode implements PluginList, Recycle {
     );
 
 
-    //assignment
-    public Input<DPPointer> paramPointersInput = new Input<DPPointer>(
-            "paramPointers",
-            "array which points a set of unique parameter values",
-            Input.Validate.REQUIRED
-    );
 
-    public Input<DPPointer> modelPointersInput = new Input<DPPointer>(
-            "modelPointers",
-            "array which points a set of unique model",
-            Input.Validate.REQUIRED
-    );
 
-    public Input<DPPointer> freqPointersInput = new Input<DPPointer>(
-            "freqPointers",
+    public Input<DPPointer> pointersInput = new Input<DPPointer>(
+            "pointers",
             "array which points a set of unique model",
             Input.Validate.REQUIRED
     );
 
 
-    private ParameterList paramList;
-    private ParameterList modelList;
-    private ParameterList freqsList;
-    private DPPointer pointers;
+    protected ParameterList paramList;
+    protected ParameterList modelList;
+    protected ParameterList freqsList;
+    protected DPPointer pointers;
     //private DPPointer modelPointers;
     //private DPPointer freqPointers;
     ArrayList<SwitchingNtdBMA> ntdBMAPool = new ArrayList<SwitchingNtdBMA>();
 
-    private int[] pointerIndices;
-    private int removedIndex = -1;
+    protected int[] pointerIndices;
+    protected int removedIndex = -1;
 
-    private ChangeType changeType;
+    protected ChangeType changeType;
     public void initAndValidate(){
         paramList = paramListInput.get();
         modelList = modelListInput.get();
         freqsList = freqsListInput.get();
-        pointers = freqPointersInput.get();
+        pointers = pointersInput.get();
 
         int dimParamList = paramList.getDimension();
         for(int i = 0; i < dimParamList;i++){
@@ -100,9 +88,11 @@ public class DPNtdBMA extends CalculationNode implements PluginList, Recycle {
         return ntdBMAs.get(index);
     }
 
-    public int getSiteModelCount(){
-        return ntdBMAs.size();
+    public int getLastAddedIndex(){
+        return freqsList.getLastAddedIndex();
     }
+
+
 
     public int[] getPointerIndices(){
         return pointerIndices;
@@ -123,24 +113,47 @@ public class DPNtdBMA extends CalculationNode implements PluginList, Recycle {
         return ntdBMAs.get(getDirtyModelIndex()).getIDNumber();
     }
 
+    public int getModelBySiteIndexIDNumber(int index){
 
-   
+        return pointers.getParameterIDNumber(index);
+    }
 
 
-    private void addModel(){
+    public int getModelByListIndexIDNumber(int index){
+
+        return ntdBMAs.get(index).getIDNumber();
+    }
 
 
-        QuietRealParameter parameter = paramList.getParameter(paramList.getDimension()-1);
+
+    protected void addModel(){
+        /*QuietRealParameter parameter = paramList.getParameter(paramList.getDimension()-1);
         QuietRealParameter model = modelList.getParameter(modelList.getDimension()-1);
-        QuietRealParameter freqs = freqsList.getParameter(freqsList.getDimension()-1);
+        QuietRealParameter freqs = freqsList.getParameter(freqsList.getDimension()-1); */
+        QuietRealParameter parameter = paramList.getParameter(paramList.getLastAddedIndex());
+        QuietRealParameter model = modelList.getParameter(modelList.getLastAddedIndex());
+        QuietRealParameter freqs = freqsList.getParameter(freqsList.getLastAddedIndex());
+
+        /*if(paramList.getDimension()-1 != paramList.getLastAddedIndex()){
+
+            throw new RuntimeException(paramList.getChangeType()+" "+(paramList.getDimension()-1)+" "+paramList.getLastAddedIndex());
+        }
+
+        if(modelList.getDimension()-1 != modelList.getLastAddedIndex()){
+            throw new RuntimeException((modelList.getDimension()-1)+" "+modelList.getLastAddedIndex());
+        }
+
+        if(freqsList.getDimension()-1 != freqsList.getLastAddedIndex()){
+            throw new RuntimeException((freqsList.getDimension()-1)+" "+freqsList.getLastAddedIndex());
+        } */
 
 
-        ntdBMAs.add(createSwitchingNtdBMA(parameter,model,freqs));
+        ntdBMAs.add(paramList.getLastAddedIndex(),createSwitchingNtdBMA(parameter,model,freqs));
 
 
     }
 
-    private void removeModel(int index){
+    protected void removeModel(int index){
         //System.out.println("removeNtdModel: "+index+" list size: "+ntdBMAs.size());
         pushPool(ntdBMAs.remove(index));
         removedIndex = index;
@@ -357,8 +370,16 @@ public class DPNtdBMA extends CalculationNode implements PluginList, Recycle {
                 }
             }else if(changeType == ChangeType.SPLIT){
                 addModel();
+            }else if(changeType == ChangeType.SPLIT_AND_VALUE_CHANGE){
+
+                addModel();
+                MCMCNodeFactory.checkDirtiness(ntdBMAs.get(freqsList.getDirtyIndex()));
             }else if(changeType == ChangeType.MERGE){
                 removeModel(freqsList.getRemovedIndex());
+            }else if(changeType == ChangeType.MERGE_AND_VALUE_CHANGE){
+
+                removeModel(freqsList.getRemovedIndex());
+                MCMCNodeFactory.checkDirtiness(ntdBMAs.get(freqsList.getDirtyIndex()));
 
             }else{
                 this.changeType = ChangeType.ALL;

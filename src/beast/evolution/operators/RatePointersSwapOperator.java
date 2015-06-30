@@ -19,8 +19,8 @@ public class RatePointersSwapOperator extends Operator {
     public Input<Alignment> alignmentInput = new Input<Alignment>("alignment", "A valuable that stores information about the category assignments", Input.Validate.REQUIRED);
 
 
-    private DPValuable dpVal;
-    private Alignment alignment;
+    protected DPValuable dpVal;
+    protected Alignment alignment;
 
     public void initAndValidate(){
         dpVal = dpValInput.get();

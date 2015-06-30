@@ -50,6 +50,10 @@ public class DirichletDistribution extends Dirichlet{
         //System.out.println(alpha.getID()+" " +alpha.getValue(0));
         scale = scaleInput.get();
 	}
+    
+    public double getScaleValue(){
+        return scale.getValue();
+    }
 
     @Override
     public Double[][] sample(int size){
