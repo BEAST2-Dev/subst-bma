@@ -150,7 +150,7 @@ public class QuietTreeLikelihood extends TreeLikelihood{
         }
     }
 
-    void initCore() {
+    protected void initCore() {
         final int nodeCount = tree.getNodeCount();
         likelihoodCore.initialize(
                 nodeCount,
@@ -176,7 +176,7 @@ public class QuietTreeLikelihood extends TreeLikelihood{
     /**
      * set leaf states in likelihood core *
      */
-    void setStates(Node node, int patternCount) {
+    protected void setStates(Node node, int patternCount) {
         if (node.isLeaf()) {
             int i;
             int[] states = new int[patternCount];
@@ -196,7 +196,7 @@ public class QuietTreeLikelihood extends TreeLikelihood{
     /**
      * set leaf partials in likelihood core *
      */
-    void setPartials(Node node, int patternCount) {
+    protected void setPartials(Node node, int patternCount) {
         if (node.isLeaf()) {
             //Alignment data = m_data.get();
             int nStates = data.getDataType().getStateCount();
