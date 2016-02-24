@@ -78,7 +78,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
 
 
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         super.initAndValidate();
         if(siteModels == null){
             throw new RuntimeException("Huh?");
@@ -178,7 +178,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
     }
     int[] clusterSites;
 
-    void handleSplit(int changedInput) throws Exception{
+    void handleSplit(int changedInput) {
 
         int ntdBMAIDNum;
         int muIDNum;
@@ -213,7 +213,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
     /*
      * Creates a new site model when there is a new combination of substitution model and mutation rate
      */
-    public void addSiteModel(int changedInput, int lastDirtySite) throws Exception{
+    public void addSiteModel(int changedInput, int lastDirtySite) {
         int ntdBMACluster;
         int rateCluster;
         if(changedInput == NTDBMA){
@@ -231,7 +231,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
 
     }
 
-    void handleMerge(int changedInput) throws Exception{
+    void handleMerge(int changedInput) {
 
         int ntdBMAIDNum;
         int muIDNum;
@@ -268,7 +268,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
 
 
 
-    public void removeSiteModel(int changedInput, int lastDirtySite) throws Exception {
+    public void removeSiteModel(int changedInput, int lastDirtySite)  {
         //int[] siteClusterMap = new int[2];
         int ntdBMACluster;
         int rateCluster;
@@ -297,7 +297,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
 
 
 
-    void handleMultiPointerChanges(int changedInput) throws Exception{
+    void handleMultiPointerChanges(int changedInput) {
 
         if(changedInput == NTDBMA){
             clusterSites = dpValSubst.getLastDirtySites();
@@ -379,7 +379,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
     /*
      * Handles changes in pointers that does not involve changes in the number of clusters
      */
-    public void handlePointerChange(int lastDirtySite) throws Exception{
+    public void handlePointerChange(int lastDirtySite) {
 
         //Previous cluster ids of the last dirty site
         int prevNtdBMAIdNum = clusterMap[NTDBMA][lastDirtySite];
@@ -411,7 +411,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
 
     }
 
-    public void handlePointerSwap(int siteIndex1, int siteIndex2) throws Exception{
+    public void handlePointerSwap(int siteIndex1, int siteIndex2) {
 
 
 
@@ -475,7 +475,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
         clusterMap[RATES][siteIndex] = rateCluster;
     }
 
-    public void updateModelMatrix(int siteIndex) throws Exception{
+    public void updateModelMatrix(int siteIndex) {
         //Remove site model if it has zero pattern weight
         if(siteModelWeights[storedClusterMap[NTDBMA][siteIndex]][storedClusterMap[RATES][siteIndex]] == 0
                 && siteModelsMatrix[storedClusterMap[NTDBMA][siteIndex]][storedClusterMap[RATES][siteIndex]] != null){
@@ -496,7 +496,7 @@ public class DPNtdRateSepSiteModel extends DPSingleAlignSiteModel {
     /*
      * Update cluster mapping
      */
-    public void updateMap(int siteIndex, int ntdBMACluster, int rateCluster) throws Exception{
+    public void updateMap(int siteIndex, int ntdBMACluster, int rateCluster) {
         /*for(int i = 0; i < clusterMap.length;i++){
             System.out.print("NTDBMA: ");
             for(int j = 0; j < clusterMap[i].length;j++){

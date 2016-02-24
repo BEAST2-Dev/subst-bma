@@ -2,6 +2,9 @@ package beast.evolution.operators;
 
 import beast.core.Operator;
 import beast.core.Input;
+
+import org.apache.commons.math.MathException;
+
 import beast.core.Description;
 import beast.core.parameter.*;
 import beast.math.distributions.DirichletProcess;
@@ -135,7 +138,7 @@ public class DirichletProcessPriorSampler extends Operator {
         return Double.POSITIVE_INFINITY;
     }
 
-    public QuietRealParameter[] sampleFromBaseDistribution(int dimValue) throws Exception{
+    public QuietRealParameter[] sampleFromBaseDistribution(int dimValue) {
         QuietRealParameter[] preliminaryProposals = new QuietRealParameter[sampleSize];
 
         for(int i = 0; i < sampleSize; i++){
@@ -143,7 +146,11 @@ public class DirichletProcessPriorSampler extends Operator {
             Double[] sample = new Double[dimValue];
             for(int j = 0;j < dimValue;j++){
 
-                sample[j] = baseDistr.inverseCumulativeProbability(Randomizer.nextDouble());
+                try {
+					sample[j] = baseDistr.inverseCumulativeProbability(Randomizer.nextDouble());
+				} catch (MathException e) {
+					throw new IllegalArgumentException(e);
+				}
                 //System.err.print(sample[j]+" ");
             }
             preliminaryProposals[i] = new QuietRealParameter(sample);

@@ -19,7 +19,7 @@ public class IntegerRandomWalkOperator extends Operator {
     protected int windowSize;
     double logq;
     double range;
-    public void initAndValidate() throws Exception {
+    public void initAndValidate()  {
         windowSize = windowSizeInput.get();
         range = parameterInput.get().getUpper() - parameterInput.get().getLower();
         if(windowSize < 1 || windowSize > (parameterInput.get().getUpper() - parameterInput.get().getLower())){

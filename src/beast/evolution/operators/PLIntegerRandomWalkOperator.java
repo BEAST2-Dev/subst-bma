@@ -20,7 +20,7 @@ public class PLIntegerRandomWalkOperator extends IntegerRandomWalkOperator{
     public PLIntegerRandomWalkOperator(){
         parameterInput.setRule(Input.Validate.OPTIONAL);
     }
-    public void initAndValidate() throws Exception {
+    public void initAndValidate()  {
         //super.initAndValidate();
         windowSize = windowSizeInput.get();
         range = parameterListInput.get().getUpper() - parameterListInput.get().getLower();

@@ -63,7 +63,7 @@ public class NewWVTreeLikelihood extends QuietTreeLikelihood {
         return m_siteModel.getID();
     }
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
 
         super.initAndValidate();
         //setup();
@@ -131,7 +131,7 @@ public class NewWVTreeLikelihood extends QuietTreeLikelihood {
 
 
 
-    void initCore() {
+    protected void initCore() {
         final int nodeCount = tree.getNodeCount();
         m_likelihoodCore.initialize(
                 nodeCount,
@@ -158,7 +158,7 @@ public class NewWVTreeLikelihood extends QuietTreeLikelihood {
     /**
      * set leaf states in likelihood core *
      */
-    void setStates(Node node, int patternCount) {
+    protected void setStates(Node node, int patternCount) {
         if (node.isLeaf()) {
             int i;
             int[] states = new int[patternCount];
@@ -199,7 +199,7 @@ public class NewWVTreeLikelihood extends QuietTreeLikelihood {
 
 
     @Override
-    public double calculateLogP() throws Exception {
+    public double calculateLogP()  {
 
         //((NtdBMA)m_substitutionModel).printDetails();
         boolean[] trueUnmasked = m_likelihoodCore.getUnmasked();
@@ -276,7 +276,7 @@ public class NewWVTreeLikelihood extends QuietTreeLikelihood {
         return logP;
     }
 
-    protected void calcLogP() throws Exception {
+    protected void calcLogP()  {
         /*if(m_siteModel instanceof  QuietSiteModel){
             printThings();
         System.out.println("mu: "+((QuietSiteModel)m_siteModel).getRateParameter()+" "+((QuietSiteModel)m_siteModel).getRateParameter().getIDNumber());
@@ -312,7 +312,7 @@ public class NewWVTreeLikelihood extends QuietTreeLikelihood {
     }
 
     /* Assumes there IS a branch rate model as opposed to traverse() */
-    int traverse(Node node) throws Exception {
+    int traverse(Node node)  {
 
         int update = (node.isDirty()| hasDirt);
         //System.out.println("update node: "+update);
@@ -363,7 +363,7 @@ public class NewWVTreeLikelihood extends QuietTreeLikelihood {
 
                     m_likelihoodCore.calculatePartials(childNum1, childNum2, iNode);
                 } else {
-                    throw new Exception("Error TreeLikelihood 201: Site categories not supported");
+                    throw new IllegalArgumentException("Error TreeLikelihood 201: Site categories not supported");
                     //m_pLikelihoodCore->calculatePartials(childNum1, childNum2, nodeNum, siteCategories);
                 }
 

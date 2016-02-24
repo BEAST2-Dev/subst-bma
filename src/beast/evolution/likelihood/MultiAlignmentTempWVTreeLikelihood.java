@@ -46,7 +46,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
     private DPMultiAlignSiteModel dpMultiAlignSiteModel;
     private int[] siteIndexWithinAlignment;
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         List<TempWVTreeLikelihood> tempWVTreeLikelihoodList = tempWVLikelihoodsInput.get();
         tempWVTreeLikelihoods = new TempWVTreeLikelihood[tempWVTreeLikelihoodList.size()];
         for(int i = 0; i < tempWVTreeLikelihoods.length; i++){
@@ -113,7 +113,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
             RealParameter modelCode,
             RealParameter freqs,
             RealParameter rate,
-            int[] sites) throws Exception{
+            int[] sites) {
         throw new RuntimeException("Not yet properly implemented");
     }
 
@@ -131,7 +131,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
             RealParameter modelParameters,
             RealParameter modelCode,
             RealParameter freqs,
-            RealParameter rate) throws Exception{
+            RealParameter rate) {
 
 
         throw new RuntimeException("Not yet properly implemented");
@@ -145,7 +145,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
             RealParameter modelCode,
             RealParameter freqs,
             int[] sites,
-            int exceptSite) throws Exception{
+            int exceptSite) {
             double[] siteLogP = new double[sites.length-1];
         throw new RuntimeException("Not yet properly implemented");
     }
@@ -154,7 +154,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
             RealParameter modelParameters,
             RealParameter modelCode,
             RealParameter freqs,
-        int[] sites) throws Exception{
+        int[] sites) {
 
         throw new RuntimeException("Not yet properly implemented");
     }
@@ -162,7 +162,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
     public double calculateLogP(
             RealParameter modelParameters,
             RealParameter modelCode,
-            RealParameter freqs) throws Exception{
+            RealParameter freqs) {
 
         throw new RuntimeException("Not yet properly implemented");
 
@@ -174,7 +174,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
 
     public double[] calculateLogP(
             RealParameter rateParameter,
-            int[] sites) throws Exception{
+            int[] sites) {
 
         double[] siteLogP = new double[sites.length];
         try{
@@ -197,7 +197,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
     public double[] calculateLogP(
             RealParameter rateParameter,
             int[] sites,
-            int exceptSite) throws Exception{
+            int exceptSite) {
         double[] siteLogP = new double[sites.length-1];
         try{
             setRateAndCalculateLogP(rateParameter);
@@ -221,7 +221,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
     }
 
     public double calculateLogP(
-            RealParameter rateParameter) throws Exception{
+            RealParameter rateParameter) {
 
         try{
             ((DummySiteModel)m_siteModel).getRateParameter().setValueQuietly(0,rateParameter.getValue());
@@ -236,7 +236,7 @@ public class MultiAlignmentTempWVTreeLikelihood extends TempWVTreeLikelihood{
 
     }
 
-    private void setRateAndCalculateLogP(RealParameter rateParameter) throws Exception{
+    private void setRateAndCalculateLogP(RealParameter rateParameter) {
 
         for(int i = 0; i < alignmentPatternWeightChanged.size(); i++){
             DummySiteModel siteModel = (DummySiteModel) tempWVTreeLikelihoods[alignmentPatternWeightChanged.get(i)].m_siteModel;

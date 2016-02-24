@@ -80,7 +80,7 @@ public class DirichletProcess extends ParametricDistribution{
         }
 
     }
-    public double calcLogP(Function xList) throws Exception {
+    public double calcLogP(Function xList) {
         if(requiresRecalculation()){
             refresh();
         }

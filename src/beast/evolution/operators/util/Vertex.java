@@ -15,7 +15,7 @@ public class Vertex extends BEASTObject {
     public Input<String> neighbours = new Input<String>(NEIGHBOURS, "A string of the id number of adjacent nodes separated by a while space");
          private int id;
     private int[] neighbourIds;
-         public void initAndValidate() throws Exception {
+         public void initAndValidate()  {
         id = idNum.get();
         String[] neighboursStr = neighbours.get().split("\\s+");
         neighbourIds = new int[neighboursStr.length];

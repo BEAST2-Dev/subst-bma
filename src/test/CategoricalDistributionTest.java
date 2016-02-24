@@ -1,5 +1,7 @@
 package test;
 
+import org.apache.commons.math.MathException;
+
 import beast.core.parameter.IntegerParameter;
 import beast.core.parameter.RealParameter;
 import beast.math.distributions.CategoricalDistribution;
@@ -151,7 +153,7 @@ public class CategoricalDistributionTest extends TestCase {
 
     Instance[] all = new Instance[]{test0,test1,test2,test3};
 
-    public void testDiscrete() throws Exception{
+    public void testDiscrete() {
         for(Instance test: all){
 
             RealParameter probs = new RealParameter();
@@ -177,7 +179,12 @@ public class CategoricalDistributionTest extends TestCase {
 
             }
             double p = test.getDouble();
-            int invProb = (int)dist.inverseCumulativeProbability(p);
+            int invProb;
+			try {
+				invProb = (int)dist.inverseCumulativeProbability(p);
+			} catch (MathException e) {
+				throw new IllegalArgumentException(e);
+			}
             //System.err.println(invProb+" "+test.getInverseProb());
             assertEquals(invProb, test.getInverseProb(), 1e-10);
 

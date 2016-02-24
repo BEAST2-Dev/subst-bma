@@ -27,14 +27,14 @@ public class ParameterListPrior extends Prior{
     }
 
     boolean applyToList;
-    public void initAndValidate() throws Exception {
+    public void initAndValidate() {
         applyToList = applyToListInput.get();
         super.initAndValidate();
 
     }
 
     @Override
-	public double calculateLogP() throws Exception {
+	public double calculateLogP() {
         ParameterList parameterList = xListInput.get();
         if(applyToList){
             //System.err.println("logP: "+logP);

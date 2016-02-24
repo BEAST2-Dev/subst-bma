@@ -69,7 +69,7 @@ public class SlowDPTreeLikelihood extends DPTreeLikelihood implements PluginList
     protected Alignment alignment;
     private DPValuable dpVal;
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         if(!(siteModelInput.get() instanceof DPSiteModel)){
             throw new RuntimeException("DPSiteModel object required for site model.");
         }
@@ -121,7 +121,7 @@ public class SlowDPTreeLikelihood extends DPTreeLikelihood implements PluginList
     }
 
     @Override
-    public double calculateLogP() throws Exception{
+    public double calculateLogP() {
         logP = 0.0;
         //System.out.println("hello: "+treeLiks.size());
         //double sum = 0.0;

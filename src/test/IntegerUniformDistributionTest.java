@@ -69,7 +69,7 @@ public class IntegerUniformDistributionTest extends TestCase {
     };
 
     Instance[] all = new Instance[]{test0,test1,test2};
-    public void testDiscrete() throws Exception{
+    public void testDiscrete() {
         for(Instance test: all){
             IntegerUniformDistribution iu = new IntegerUniformDistribution();
 

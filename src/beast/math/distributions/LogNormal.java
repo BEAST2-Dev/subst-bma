@@ -18,7 +18,7 @@ public class LogNormal extends LogNormalDistributionModel {
     boolean sIsPrec;
     LogNormalImpl m_dist = new LogNormalImpl(0, 1);
 
-    public void initAndValidate() throws Exception {
+    public void initAndValidate() {
         sIsPrec = sIsPrecInput.get();
         super.initAndValidate();
     	m_bMeanInRealSpace = hasMeanInRealSpaceInput.get();

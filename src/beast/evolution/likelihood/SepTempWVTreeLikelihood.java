@@ -27,7 +27,7 @@ public class SepTempWVTreeLikelihood extends TempWVTreeLikelihood{
     protected DPNtdRateSepSiteModel dpNtdRateSepSiteModel;
     protected SwitchingNtdBMA substModel;
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         super.initAndValidate();
         dpNtdRateSepSiteModel = dpNtdRateSepSiteModelInput.get();
         substModel = (SwitchingNtdBMA)m_siteModel.getSubstitutionModel();
@@ -151,7 +151,7 @@ public class SepTempWVTreeLikelihood extends TempWVTreeLikelihood{
     public double[] calculateLogP(
             RealParameter rateParameter,
             int[] siteIndexP,
-            int except)throws Exception{
+            int except){
         int[] siteIndex = new int[siteIndexP.length - 1];
         int k = 0;
         for(int i = 0; i < siteIndexP.length;i++){
@@ -166,7 +166,7 @@ public class SepTempWVTreeLikelihood extends TempWVTreeLikelihood{
 
     public double[] calculateLogP (
             RealParameter rateParameter,
-            int[] siteIndex) throws Exception{
+            int[] siteIndex) {
         Alignment alignment = dataInput.get();
 
         double[] logPs = new double[siteIndex.length];
@@ -240,7 +240,7 @@ public class SepTempWVTreeLikelihood extends TempWVTreeLikelihood{
 
     }
 
-    public double calculateLogP() throws Exception {
+    public double calculateLogP()  {
         substitutionModel = m_siteModel.substModelInput.get();
         /*boolean[] unmasked = m_likelihoodCore.getUnmasked();
         for(int i = 0; i < patternWeights.length; i++){

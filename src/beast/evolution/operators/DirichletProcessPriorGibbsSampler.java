@@ -3,6 +3,9 @@ package beast.evolution.operators;
 import beast.core.Operator;
 import beast.core.Input;
 import beast.core.Distribution;
+
+import org.apache.commons.math.MathException;
+
 import beast.core.Description;
 import beast.core.parameter.*;
 import beast.math.distributions.DirichletProcess;
@@ -215,7 +218,7 @@ public class DirichletProcessPriorGibbsSampler extends Operator {
         return Double.POSITIVE_INFINITY;
     }
 
-    public QuietRealParameter[] sampleFromBaseDistribution(ParameterList paramList) throws Exception{
+    public QuietRealParameter[] sampleFromBaseDistribution(ParameterList paramList) {
         QuietRealParameter[] preliminaryProposals = getSamples(baseDistr);
         for(RealParameter parameter: preliminaryProposals){
             parameter.setUpper(paramList.getUpper());
@@ -248,12 +251,17 @@ public class DirichletProcessPriorGibbsSampler extends Operator {
 
     }
 
-    public QuietRealParameter[] getSamples(ParametricDistribution distr) throws Exception{
+    public QuietRealParameter[] getSamples(ParametricDistribution distr) {
         QuietRealParameter[] samples = new QuietRealParameter[sampleSize];
-        Double[][] sampleVals = distr.sample(sampleSize);
-        for(int i = 0; i < samples.length;i++){
-            samples[i] = new QuietRealParameter(sampleVals[i]);
-        }
+        try {
+        	Double[][] sampleVals = distr.sample(sampleSize);
+            for(int i = 0; i < samples.length;i++){
+                samples[i] = new QuietRealParameter(sampleVals[i]);
+            }
+		} catch (MathException e) {
+			throw new IllegalArgumentException(e);
+		}
+
         return samples;
     }
 

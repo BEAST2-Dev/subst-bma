@@ -226,7 +226,7 @@ public class DPValuable extends CalculationNode implements Function, Loggable{
         return pointers.getDimension();
     }
 
-     public void init(PrintStream out) throws Exception{
+     public void init(PrintStream out) {
         out.print(getID()+"\t");
 
     }

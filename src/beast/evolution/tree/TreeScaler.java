@@ -25,7 +25,7 @@ public class TreeScaler extends Tree implements StateNodeInitialiser{
 
     //private double scaleToHeight;
     private Tree tree;
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
 
         super.initAndValidate();
         tree = m_initial.get();

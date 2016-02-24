@@ -85,7 +85,7 @@ public class MultinomialTest extends TestCase{
 
     Instance[] all = new Instance[]{test0,test1,test2};
 
-    public void testMultinomial() throws Exception{
+    public void testMultinomial() {
         for(Instance test: all){
             RealParameter probs = new RealParameter();
             IntegerParameter x  = new IntegerParameter();

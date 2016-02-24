@@ -31,7 +31,7 @@ public class CompoundTempTreeLikelihood extends CompoundDistribution {
     boolean useThreads;
 
     private List<TempTreeLikelihood> tempTreeLiks;
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         tempTreeLiks = tempTreeLiksInput.get();
         useThreads = useThreadsInput.get() && (BeastMCMC.m_nThreads > 1);
 
@@ -77,7 +77,7 @@ public class CompoundTempTreeLikelihood extends CompoundDistribution {
 
     CountDownLatch m_nCountDown;
 
-    private double[] calculateLogPUsingThreads(int site) throws Exception {
+    private double[] calculateLogPUsingThreads(int site)  {
 
         try {
 
@@ -113,7 +113,7 @@ public class CompoundTempTreeLikelihood extends CompoundDistribution {
                 logPs[i] = tempTreeLiks.get(i).getCurrentLogP();
             }
             return logPs;
-        } catch (RejectedExecutionException e) {
+        } catch (RejectedExecutionException | InterruptedException e) {
             useThreads = false;
             System.err.println("Stop using threads: " + e.getMessage());
             // refresh thread pool
@@ -123,7 +123,7 @@ public class CompoundTempTreeLikelihood extends CompoundDistribution {
     }
 
 
-    public double[] calculateLogP(int site) throws Exception{
+    public double[] calculateLogP(int site) {
         double[] logPs = new double[tempTreeLiks.size()];
 
         if (useThreads) {

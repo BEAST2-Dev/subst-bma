@@ -55,7 +55,7 @@ public class DPSepMultiTreesTreeLikelihood extends DPSepTreeLikelihood {
     private List<Tree> trees;
     private int[] alignmentStartingIndex;
     private int[] alignmentIndexBySite;
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         useThreads = useThreadsInput.get() && (BeastMCMC.m_nThreads > 1);
         useThreadsEvenly = useThreadsEvenlyInput.get() && (BeastMCMC.m_nThreads > 1);
 

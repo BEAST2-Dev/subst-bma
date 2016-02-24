@@ -23,13 +23,13 @@ public class DirichletDistribution extends Dirichlet{
 
 
 
-    public DirichletDistribution() throws Exception{
+    public DirichletDistribution() {
         alpha = new RealParameter(new Double[]{Double.NaN,Double.NaN,Double.NaN,Double.NaN});
         scale = scaleInput.get();
 
     }
 
-    public DirichletDistribution(Double[] alpha) throws Exception{
+    public DirichletDistribution(Double[] alpha) {
         this.alpha = new RealParameter(alpha);
         scale = scaleInput.get();
 
@@ -42,7 +42,7 @@ public class DirichletDistribution extends Dirichlet{
     }*/
 
 
-    public void initAndValidate() throws Exception {
+    public void initAndValidate()  {
         //System.out.println("This is initiated!");
         //System.out.println(m_alpha.get().getID()+" "+m_alpha.get().getValue(0));
 
@@ -176,7 +176,7 @@ public class DirichletDistribution extends Dirichlet{
 
 
     @Override
-    public double calcLogP(Function pX) throws Exception {
+    public double calcLogP(Function pX)  {
 
         double scaleVal = scale.getValue();
         Double [] fAlpha = alpha.getValues();
@@ -189,7 +189,7 @@ public class DirichletDistribution extends Dirichlet{
 
 
         if (alpha.getDimension() != pX.getDimension()) {
-            throw new Exception("Dimensions of alpha and x should be the same, but dim(alpha)=" + alpha.getDimension()
+            throw new IllegalArgumentException("Dimensions of alpha and x should be the same, but dim(alpha)=" + alpha.getDimension()
                     + " and dim(x)=" + pX.getDimension());
         }
         for(int i = 0; i < fAlpha.length; i++){

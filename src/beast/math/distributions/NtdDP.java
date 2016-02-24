@@ -47,7 +47,7 @@ public class NtdDP extends DirichletProcess{
     public double calcLogP(
             ParameterList paramList,
             ParameterList modelList,
-            ParameterList freqList) throws Exception {
+            ParameterList freqList)  {
         if(requiresRecalculation()){
             refresh();
             //System.out.println("Refreshing!");

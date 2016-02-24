@@ -121,7 +121,7 @@ public class NtdBMA extends SubstitutionModel.Base{
 
 
     @Override
-    public void initAndValidate() throws Exception {
+    public void initAndValidate()  {
         initialize(
                 logKappaInput.get(),
                 logTNInput.get(),
@@ -564,7 +564,7 @@ public class NtdBMA extends SubstitutionModel.Base{
 			return true;
 		}
 		return false;
-		// throw new Exception("Can only handle nucleotide data");
+		// throw new IllegalArgumentException("Can only handle nucleotide data");
 	}
     /**
      * This function returns the Eigen vectors.

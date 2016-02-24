@@ -232,7 +232,7 @@ public class Wishart extends ParametricDistribution implements MultivariateDistr
         return draw;
     }
 
-    public double calcLogP(Function x) throws Exception {
+    public double calcLogP(Function x) {
         int vDim = x.getDimension();
         if(vDim == 4){
 

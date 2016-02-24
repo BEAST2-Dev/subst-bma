@@ -31,7 +31,7 @@ public class SlowDPSepTreeLikelihood extends SlowDPTreeLikelihood{
         dpValInput.setRule(Input.Validate.OPTIONAL);
     }
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
 
 
         alignment = dataInput.get();
@@ -85,7 +85,7 @@ public class SlowDPSepTreeLikelihood extends SlowDPTreeLikelihood{
         }
     }
 
-    /*public double calculateLogP() throws Exception{
+    /*public double calculateLogP() {
         int sum = getSumWeight();
         if(sum != alignment.getSiteCount()){
             throw new RuntimeException("Weights ("+sum+") and site count("+alignment.getSiteCount()+").");

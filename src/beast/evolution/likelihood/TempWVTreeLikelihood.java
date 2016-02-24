@@ -38,7 +38,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
 
 
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
 
         //setup weights
         if(patternWeightInput.get() == null){
@@ -63,7 +63,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
     }
 
         @Override
-    public double calculateLogP() throws Exception {
+    public double calculateLogP()  {
         /*boolean[] unmasked = m_likelihoodCore.getUnmasked();
         for(int i = 0; i < patternWeights.length; i++){
             System.out.print(unmasked[i]+" ");
@@ -110,7 +110,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
             RealParameter modelCode,
             RealParameter freqs,
             RealParameter rate,
-            int[] sites) throws Exception{
+            int[] sites) {
         double[] siteLogP = new double[sites.length];
         calculateLogP(modelParameters,modelCode,freqs,rate);
         for(int i = 0; i < sites.length;i++){
@@ -150,7 +150,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
             RealParameter modelParameters,
             RealParameter modelCode,
             RealParameter freqs,
-            RealParameter rate) throws Exception{
+            RealParameter rate) {
 
 
         SwitchingNtdBMA  substModel = (SwitchingNtdBMA)substitutionModel;
@@ -179,7 +179,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
             RealParameter modelCode,
             RealParameter freqs,
             int[] sites,
-            int exceptSite) throws Exception{
+            int exceptSite) {
             double[] siteLogP = new double[sites.length-1];
         try{
 
@@ -204,7 +204,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
             RealParameter modelParameters,
             RealParameter modelCode,
             RealParameter freqs,
-        int[] sites) throws Exception{
+        int[] sites) {
         double[] siteLogP = new double[sites.length];
         calculateLogP(modelParameters,modelCode,freqs);
         for(int i = 0; i < sites.length;i++){
@@ -216,7 +216,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
     public double calculateLogP(
             RealParameter modelParameters,
             RealParameter modelCode,
-            RealParameter freqs) throws Exception{
+            RealParameter freqs) {
 
 
                 SwitchingNtdBMA  substModel = (SwitchingNtdBMA)substitutionModel;
@@ -243,7 +243,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
 
     public double[] calculateLogP(
             RealParameter rateParameter,
-            int[] sites) throws Exception{
+            int[] sites) {
         double[] siteLogP = new double[sites.length];
         try{
             ((DummySiteModel)m_siteModel).getRateParameter().setValueQuietly(0,rateParameter.getValue());
@@ -262,7 +262,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
     public double[] calculateLogP(
             RealParameter rateParameter,
             int[] sites,
-            int exceptSite) throws Exception{
+            int exceptSite) {
         double[] siteLogP = new double[sites.length-1];
         try{
             ((DummySiteModel)m_siteModel).getRateParameter().setValueQuietly(0,rateParameter.getValue());
@@ -281,7 +281,7 @@ public class TempWVTreeLikelihood extends NewWVTreeLikelihood{
     }
 
     public double calculateLogP(
-            RealParameter rateParameter) throws Exception{
+            RealParameter rateParameter) {
 
         try{
             ((DummySiteModel)m_siteModel).getRateParameter().setValueQuietly(0,rateParameter.getValue());

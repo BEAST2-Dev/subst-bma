@@ -17,7 +17,7 @@ import test.beast.BEASTTestCase;
  */
 public class WVLikelihoodCoreTest extends TestCase {
 
-    public static SiteModel getDefaultSiteModel() throws Exception{
+    public static SiteModel getDefaultSiteModel() {
         RealParameter frequencies = new RealParameter(new Double[]{0.25, 0.25, 0.25, 0.25});
         Frequencies freqs = new Frequencies();
         freqs.initByName(

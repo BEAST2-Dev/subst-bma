@@ -1,6 +1,8 @@
 package beast.evolution.branchratemodel;
 
 
+import org.apache.commons.math.MathException;
+
 import beast.core.Citation;
 import beast.core.Description;
 import beast.core.Input;
@@ -27,7 +29,7 @@ public class SynchronizableUCRelaxedClock extends BranchRateModel.Base {
     RealParameter meanRate;
 
     @Override
-    public void initAndValidate() throws Exception {
+    public void initAndValidate()  {
 
         tree = treeInput.get();
 
@@ -48,7 +50,11 @@ public class SynchronizableUCRelaxedClock extends BranchRateModel.Base {
         rates = new double[categories.getDimension()];
         storedRates = new double[categories.getDimension()];
         for (int i = 0; i < rates.length; i++) {
-            rates[i] = distribution.inverseCumulativeProbability((i + 0.5) / rates.length);
+            try {
+				rates[i] = distribution.inverseCumulativeProbability((i + 0.5) / rates.length);
+			} catch (MathException e) {
+				throw new IllegalArgumentException(e);
+			}
         }
         System.arraycopy(rates, 0, storedRates, 0, rates.length);
         normalize = normalizeInput.get();

@@ -12,7 +12,7 @@ public class MultivariateNormalTest extends TestCase {
     interface Instance {
 
         String getMean();
-        RealParameter getPrecision() throws Exception;
+        RealParameter getPrecision() ;
         String[] getX();
         double[] getFLogX();
     }
@@ -23,7 +23,7 @@ public class MultivariateNormalTest extends TestCase {
             return "1.2 2.1 1.4 1.6";
         }
 
-        public RealParameter getPrecision()throws Exception{
+        public RealParameter getPrecision(){
 
 
 
@@ -64,7 +64,7 @@ public class MultivariateNormalTest extends TestCase {
             return "7 9 5 10 2 9";
         }
 
-        public RealParameter getPrecision()throws Exception{
+        public RealParameter getPrecision(){
             RealParameter precision = new RealParameter();
             precision.initByName(
                     "value",
@@ -94,7 +94,7 @@ public class MultivariateNormalTest extends TestCase {
             return "0.88773 0.20646 0.88280 0.57498 0.64055 0.09056";
         }
 
-        public RealParameter getPrecision()throws Exception{
+        public RealParameter getPrecision(){
             RealParameter precision = new RealParameter();
             precision.initByName(
                     "value",
@@ -133,7 +133,7 @@ public class MultivariateNormalTest extends TestCase {
 
     Instance[] all = new Instance[]{test0,test1,test2};
 
-    public void testMultivariateNormal() throws Exception{
+    public void testMultivariateNormal() {
         for(Instance test: all){
             RealParameter mean = new RealParameter();
 

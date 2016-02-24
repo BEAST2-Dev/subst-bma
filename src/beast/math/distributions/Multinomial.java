@@ -50,7 +50,7 @@ public class Multinomial extends ParametricDistribution{
 	}
 
     @Override
-	public double calcLogP(Function xVec) throws Exception {
+	public double calcLogP(Function xVec) {
         
 
         int xVecDim  = xVec.getDimension();

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 @Description("An incomplete attempt to improve the efficiency of computation.")
 public class EfficientDPNtdRateSepSiteModel extends DPNtdRateSepSiteModel{
 
-    public void updateMap(int siteIndex, int ntdBMACluster, int rateCluster) throws Exception{
+    public void updateMap(int siteIndex, int ntdBMACluster, int rateCluster) {
        updatedSites.add(siteIndex);
         /*for(int i = 0; i < clusterMap.length;i++){
             System.out.print("NTDBMA: ");
@@ -124,7 +124,7 @@ public class EfficientDPNtdRateSepSiteModel extends DPNtdRateSepSiteModel{
 
     int affectedCluster, remainedCluster;
 
-    void handleMerge(int changedInput) throws Exception{
+    void handleMerge(int changedInput) {
         backUp();
         /*if(changedInput == NTDBMA){
 
@@ -152,7 +152,7 @@ public class EfficientDPNtdRateSepSiteModel extends DPNtdRateSepSiteModel{
 
     }
 
-    void handleSplit(int changedInput) throws Exception{
+    void handleSplit(int changedInput) {
         backUp();
         /*int ntdBMAIDNum;
         int muIDNum;

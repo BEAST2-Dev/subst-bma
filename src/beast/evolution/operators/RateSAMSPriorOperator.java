@@ -466,7 +466,7 @@ public class RateSAMSPriorOperator extends Operator {
             int[] shuffle,
             int[] mergedClusterSites,
             double[] lik1,
-            double[] lik2) throws Exception{
+            double[] lik2) {
 
         //int[] tempWeights = new int[tempLikelihood.m_data.get().getPatternCount()];
         //tempWeights[tempLikelihood.m_data.get().getPatternIndex(mergedClusterSites[shuffle[i]])] = 1;

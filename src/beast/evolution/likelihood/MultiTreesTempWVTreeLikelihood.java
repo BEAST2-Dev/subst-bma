@@ -92,7 +92,7 @@ public class MultiTreesTempWVTreeLikelihood extends Distribution {
             RealParameter modelCode,
             RealParameter freqs,
             RealParameter rate,
-            int[] sites) throws Exception{
+            int[] sites) {
         double[] siteLogP = new double[sites.length];
 
 
@@ -125,7 +125,7 @@ public class MultiTreesTempWVTreeLikelihood extends Distribution {
             RealParameter modelParameters,
             RealParameter modelCode,
             RealParameter freqs,
-            int[] sites) throws Exception{
+            int[] sites) {
         double[] siteLogP = new double[sites.length];
 
 
@@ -154,7 +154,7 @@ public class MultiTreesTempWVTreeLikelihood extends Distribution {
 
     public double[] calculateLogP (
             RealParameter rate,
-            int[] sites) throws Exception{
+            int[] sites) {
         double[] siteLogP = new double[sites.length];
 
 

@@ -35,7 +35,7 @@ public class DPSepTreeLikelihood extends DPTreeLikelihood{
         dpValInput.setRule(Input.Validate.OPTIONAL);
     }
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         useThreads = useThreadsInput.get() && (BeastMCMC.m_nThreads > 1);
         useThreadsEvenly = useThreadsEvenlyInput.get() && (BeastMCMC.m_nThreads > 1);
 
@@ -92,7 +92,7 @@ public class DPSepTreeLikelihood extends DPTreeLikelihood{
 
     }
 
-    /*public double calculateLogP() throws Exception{
+    /*public double calculateLogP() {
         int sum = getSumWeight();
         if(sum != alignment.getSiteCount()){
             throw new RuntimeException("Weights ("+sum+") and site count("+alignment.getSiteCount()+").");
@@ -453,7 +453,7 @@ public class DPSepTreeLikelihood extends DPTreeLikelihood{
 
     }
 
-    /*public double calculateLogP()throws Exception{
+    /*public double calculateLogP(){
         QuietSiteModel q = dpSiteModel.getSiteModel(0,2);
         if(q != null && treeLiksMatrix[0][2] !=null){
 

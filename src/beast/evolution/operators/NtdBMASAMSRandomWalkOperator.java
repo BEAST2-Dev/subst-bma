@@ -625,7 +625,7 @@ public class NtdBMASAMSRandomWalkOperator extends Operator {
             int[] shuffle,
             int[] mergedClusterSites,
             double[] lik1,
-            double[] lik2) throws Exception{
+            double[] lik2) {
 
         int[] tempWeights = new int[tempLikelihood.dataInput.get().getPatternCount()];
         tempWeights[tempLikelihood.dataInput.get().getPatternIndex(mergedClusterSites[shuffle[i]])] = 1;
@@ -659,7 +659,7 @@ public class NtdBMASAMSRandomWalkOperator extends Operator {
     }
 
 
-    private QuietRealParameter relativeRateProposal(QuietRealParameter curr) throws Exception{
+    private QuietRealParameter relativeRateProposal(QuietRealParameter curr) {
         Double[] currVals = curr.getValues();
         double[] meanVec = new double[currVals.length];
         for(int i = 0; i < currVals.length; i++){
@@ -675,7 +675,7 @@ public class NtdBMASAMSRandomWalkOperator extends Operator {
         return proposal;
     }
 
-    private QuietRealParameter frequenciesProposal(QuietRealParameter curr) throws Exception{
+    private QuietRealParameter frequenciesProposal(QuietRealParameter curr) {
         Double[] currVals = curr.getValues();
         Double[] proposalVals = DirichletDistribution.nextDirichletScale(currVals,scale);
         QuietRealParameter proposal = new QuietRealParameter(proposalVals);

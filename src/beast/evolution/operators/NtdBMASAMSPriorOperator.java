@@ -10,6 +10,8 @@ import beast.math.distributions.CompoundDirichletProcess;
 import beast.math.distributions.DirichletDistribution;
 import beast.math.distributions.ParametricDistribution;
 import beast.util.Randomizer;
+
+import org.apache.commons.math.MathException;
 import org.apache.commons.math.distribution.NormalDistribution;
 import org.apache.commons.math.distribution.NormalDistributionImpl;
 
@@ -174,9 +176,14 @@ public class NtdBMASAMSPriorOperator extends Operator {
         return logq;
     }
 
-    public QuietRealParameter getSample(ParametricDistribution distr, double upper, double lower) throws Exception{
+    public QuietRealParameter getSample(ParametricDistribution distr, double upper, double lower) {
 
-        Double[][] sampleVals = distr.sample(1);
+        Double[][] sampleVals;
+		try {
+			sampleVals = distr.sample(1);
+		} catch (MathException e) {
+			throw new IllegalArgumentException(e);
+		}
 
         QuietRealParameter sampleParameter = new QuietRealParameter(sampleVals[0]);
         sampleParameter.setUpper(upper);
@@ -608,7 +615,7 @@ public class NtdBMASAMSPriorOperator extends Operator {
             int[] shuffle,
             int[] mergedClusterSites,
             double[] lik1,
-            double[] lik2) throws Exception{
+            double[] lik2) {
 
         int[] tempWeights = new int[tempLikelihood.dataInput.get().getPatternCount()];
         tempWeights[tempLikelihood.dataInput.get().getPatternIndex(mergedClusterSites[shuffle[i]])] = 1;

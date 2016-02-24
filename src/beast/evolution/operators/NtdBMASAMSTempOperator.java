@@ -20,6 +20,8 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.math.MathException;
+
 /**
  * @author Chieh-Hsi Wu
  */
@@ -180,9 +182,14 @@ public class NtdBMASAMSTempOperator extends Operator {
         return logq;
     }
 
-    public QuietRealParameter getSample(ParametricDistribution distr, double upper, double lower) throws Exception{
+    public QuietRealParameter getSample(ParametricDistribution distr, double upper, double lower) {
 
-        Double[][] sampleVals = distr.sample(1);
+        Double[][] sampleVals;
+		try {
+			sampleVals = distr.sample(1);
+		} catch (MathException e) {
+			throw new IllegalArgumentException(e);
+		}
 
         QuietRealParameter sampleParameter = new QuietRealParameter(sampleVals[0]);
         sampleParameter.setUpper(upper);
@@ -589,7 +596,7 @@ public class NtdBMASAMSTempOperator extends Operator {
             int[] shuffle,
             int[] mergedClusterSites,
             double[] lik1,
-            double[] lik2) throws Exception{
+            double[] lik2) {
 
         int[] tempWeights = new int[tempLikelihood.dataInput.get().getPatternCount()];
         tempWeights[tempLikelihood.dataInput.get().getPatternIndex(mergedClusterSites[shuffle[i]])] = 1;

@@ -1,5 +1,7 @@
 package beast.evolution.operators;
 
+import org.apache.commons.math.MathException;
+
 import beast.core.Description;
 import beast.core.Operator;
 import beast.core.Loggable;
@@ -341,9 +343,14 @@ public class RateDPPGibbsSampler extends Operator{
     }
 
 
-    public QuietRealParameter[] getSamples(ParametricDistribution distr, RealParameter example) throws Exception{
+    public QuietRealParameter[] getSamples(ParametricDistribution distr, RealParameter example) {
         QuietRealParameter[] samples = new QuietRealParameter[sampleSize];
-        Double[][] sampleVals = distr.sample(sampleSize);
+        Double[][] sampleVals;
+		try {
+			sampleVals = distr.sample(sampleSize);
+		} catch (MathException e) {
+			throw new IllegalArgumentException(e);
+		}
         for(int i = 0; i < samples.length;i++){
             samples[i] = new QuietRealParameter(sampleVals[i]);
             samples[i].setUpper(example.getUpper());

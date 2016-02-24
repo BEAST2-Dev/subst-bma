@@ -34,10 +34,10 @@ public class WVTreeLikelihood extends TreeLikelihood{
     }
 
 @Override
-    public void initAndValidate() throws Exception {
+    public void initAndValidate()  {
     	// sanity check: alignment should have same #taxa as tree
     	if (dataInput.get().getNrTaxa() != treeInput.get().getLeafNodeCount()) {
-    		throw new Exception("The number of nodes in the tree does not match the number of sequences");
+    		throw new IllegalArgumentException("The number of nodes in the tree does not match the number of sequences");
     	}
     	//m_beagle = null;
     	/*m_beagle = new BeagleTreeLikelihood();
@@ -56,7 +56,7 @@ public class WVTreeLikelihood extends TreeLikelihood{
 
         int nodeCount = treeInput.get().getNodeCount();
         if (!(siteModelInput.get() instanceof SiteModel.Base)) {
-        	throw new Exception ("siteModel input should be of type SiteModel.Base");
+        	throw new IllegalArgumentException ("siteModel input should be of type SiteModel.Base");
         }
         m_siteModel = (SiteModel.Base) siteModelInput.get();
         m_siteModel.setDataType(dataInput.get().getDataType());
@@ -104,7 +104,7 @@ public class WVTreeLikelihood extends TreeLikelihood{
     }
 
     @Override
-    public double calculateLogP() throws Exception {
+    public double calculateLogP()  {
     	/*if (m_beagle != null) {
     		logP =  m_beagle.calculateLogP();
     		return logP;
@@ -144,7 +144,7 @@ public class WVTreeLikelihood extends TreeLikelihood{
         return logP;
     }
 
-    protected void calcLogP() throws Exception {
+    protected void calcLogP()  {
         logP = 0.0;
         if (useAscertainedSitePatterns) {
             double ascertainmentCorrection = ((AscertainedAlignment)dataInput.get()).getAscertainmentCorrection(patternLogLikelihoods);

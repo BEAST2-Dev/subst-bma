@@ -26,7 +26,7 @@ public class TempSiteTreeLikelihood extends QuietTreeLikelihood{
     
 
     @Override
-    public double calculateLogP() throws Exception{
+    public double calculateLogP() {
 
         //System.out.println("rate ID: "+((SiteModel)m_siteModel).getRateParameter().getIDNumber());
         //System.out.println("model ID: "+((SwitchingNtdBMA)((SiteModel)m_siteModel).getSubstitutionModel()).getIDNumber());

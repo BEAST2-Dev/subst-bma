@@ -17,6 +17,8 @@ import beast.util.Randomizer;
 import java.io.PrintStream;
 import java.util.List;
 
+import org.apache.commons.math.MathException;
+
 /**
  * @author Chieh-Hsi Wu
  */
@@ -450,9 +452,14 @@ public class NtdBMARateDPPGibbsSampler  extends Operator implements Loggable {
         return siteLogLik;
     }
 
-    public QuietRealParameter[] getSamples(ParametricDistribution distr, RealParameter example) throws Exception{
+    public QuietRealParameter[] getSamples(ParametricDistribution distr, RealParameter example) {
         QuietRealParameter[] samples = new QuietRealParameter[sampleSize];
-        Double[][] sampleVals = distr.sample(sampleSize);
+        Double[][] sampleVals;
+		try {
+			sampleVals = distr.sample(sampleSize);
+		} catch (MathException e) {
+			throw new IllegalArgumentException(e);
+		}
         for(int i = 0; i < samples.length;i++){
             samples[i] = new QuietRealParameter(sampleVals[i]);
             samples[i].setUpper(example.getUpper());
@@ -462,7 +469,7 @@ public class NtdBMARateDPPGibbsSampler  extends Operator implements Loggable {
     }
 
     @Override
-	public void init(PrintStream out) throws Exception {
+	public void init(PrintStream out) {
         out.print("count(Add cluster)\t");
     }
 

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @Description("This site model is used to be created internally on the fly during the MCMC.")
 public class QuietSiteModel extends SiteModel {
     @Override
-    public void initAndValidate() throws Exception {
+    public void initAndValidate()  {
 
     	useBeast1StyleGamma = true; // useBeast1StyleGammaInput.get();
         muParameter = muParameterInput.get();
@@ -43,7 +43,7 @@ public class QuietSiteModel extends SiteModel {
 
 
         if (/*invarParameter != null && */(invarParameter.getValue() < 0 || invarParameter.getValue() > 1)) {
-            throw new Exception("proportion invariant should be between 0 and 1");
+            throw new IllegalArgumentException("proportion invariant should be between 0 and 1");
         }
         refresh();
 
@@ -64,7 +64,7 @@ public class QuietSiteModel extends SiteModel {
     public QuietSiteModel(){}
 
     public QuietSiteModel(SubstitutionModel substModel,
-                          QuietRealParameter muParameter) throws Exception{
+                          QuietRealParameter muParameter) {
         this(substModel,
                 muParameter,
                 null,
@@ -79,7 +79,7 @@ public class QuietSiteModel extends SiteModel {
                           RealParameter shapeParameter,
                           RealParameter invarParameter,
                           boolean useBeast1StyleGamma,
-                          int gammaCategoryCount) throws Exception{
+                          int gammaCategoryCount) {
         substitutionModel = (SubstitutionModel.Base)substModel;
 
         this.useBeast1StyleGamma = useBeast1StyleGamma;
@@ -115,7 +115,7 @@ public class QuietSiteModel extends SiteModel {
 
 
         if (/*invarParameter != null && */(this.invarParameter.getValue() < 0 || this.invarParameter.getValue() > 1)) {
-            throw new Exception("proportion invariant should be between 0 and 1");
+            throw new IllegalArgumentException("proportion invariant should be between 0 and 1");
         }
         gammaCatCount = gammaCategoryCount;
         refresh();

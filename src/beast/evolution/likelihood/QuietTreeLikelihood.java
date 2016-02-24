@@ -43,12 +43,12 @@ public class QuietTreeLikelihood extends TreeLikelihood{
     }
 
     @Override
-    public void initAndValidate() throws Exception {
+    public void initAndValidate()  {
 
         data = dataInput.get();
         tree = (Tree) treeInput.get();
         if (!(siteModelInput.get() instanceof SiteModel.Base)) {
-        	throw new Exception ("siteModel input should be of type SiteModel.Base");
+        	throw new IllegalArgumentException ("siteModel input should be of type SiteModel.Base");
         }
         m_siteModel = (SiteModel.Base) siteModelInput.get();
         if (branchRateModelInput.get() != null) {
@@ -61,7 +61,7 @@ public class QuietTreeLikelihood extends TreeLikelihood{
         substitutionModel = (SubstitutionModel.Base) m_siteModel.getSubstitutionModel();
         // sanity check: alignment should have same #taxa as tree
         if (data.getNrTaxa() != tree.getLeafNodeCount()) {
-            throw new Exception("The number of nodes in the tree does not match the number of sequences");
+            throw new IllegalArgumentException("The number of nodes in the tree does not match the number of sequences");
         }
 
         /*m_beagle = null;
@@ -220,7 +220,7 @@ public class QuietTreeLikelihood extends TreeLikelihood{
     }
 
     @Override
-    public double calculateLogP() throws Exception {
+    public double calculateLogP()  {
         if (beagle != null) {
             logP = beagle.calculateLogP();
             return logP;
@@ -253,7 +253,7 @@ public class QuietTreeLikelihood extends TreeLikelihood{
         return logP;
     }
 
-    void calcLogP() throws Exception {
+    void calcLogP()  {
         logP = 0.0;
         if (useAscertainedSitePatterns) {
             final double ascertainmentCorrection = ((AscertainedAlignment) data).getAscertainmentCorrection(patternLogLikelihoods);

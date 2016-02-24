@@ -116,7 +116,7 @@ public class PointerMean extends Scaler implements Loggable, Function{
 
 
     @Override
-	public void init(PrintStream out) throws Exception {
+	public void init(PrintStream out) {
         out.print(getID() +"\t");
 
     }

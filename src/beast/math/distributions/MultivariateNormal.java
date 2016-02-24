@@ -119,7 +119,7 @@ public class MultivariateNormal extends ParametricDistribution implements Multiv
 
     }
 
-    public double calcLogP(Function x) throws Exception {
+    public double calcLogP(Function x) {
         if(requiresRecalculation()){
             refresh();
         }

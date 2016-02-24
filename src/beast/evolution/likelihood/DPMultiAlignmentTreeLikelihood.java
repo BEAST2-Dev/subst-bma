@@ -48,7 +48,7 @@ public class DPMultiAlignmentTreeLikelihood extends DPTreeLikelihood {
 
     }
 
-    public void initAndValidate () throws Exception{
+    public void initAndValidate () {
         dpSiteModel = dpMultiAlignSiteModelInput.get();
         alignments = alignmentsInput.get();
         dpVal = dpValInput.get();

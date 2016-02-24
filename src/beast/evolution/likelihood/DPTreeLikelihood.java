@@ -54,7 +54,7 @@ public class DPTreeLikelihood extends GenericTreeLikelihood implements PluginLis
     protected Alignment alignment;
     protected DPValuable dpVal;
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         useThreads = useThreadsInput.get() && (BeastMCMC.m_nThreads > 1);
         useThreadsEvenly = useThreadsEvenlyInput.get() && (BeastMCMC.m_nThreads > 1);
 
@@ -116,7 +116,7 @@ public class DPTreeLikelihood extends GenericTreeLikelihood implements PluginLis
     }
 
     /*@Override
-    public double calculateLogP() throws Exception{
+    public double calculateLogP() {
         logP = 0.0;
         //System.out.println("hello: "+treeLiks.size());
         //double sum = 0.0;
@@ -150,7 +150,7 @@ public class DPTreeLikelihood extends GenericTreeLikelihood implements PluginLis
 
 
     @Override
-    public double calculateLogP() throws Exception{
+    public double calculateLogP() {
         logP = 0.0;
 
         int nrOfDirtyDistrs = 0;
@@ -191,7 +191,7 @@ public class DPTreeLikelihood extends GenericTreeLikelihood implements PluginLis
     }
 
     CountDownLatch m_nCountDown;
-    private double calculateLogPUsingThreads() throws Exception {
+    private double calculateLogPUsingThreads()  {
         try {
             //System.out.println("What?");
             int nrOfDirtyDistrs = 0;
@@ -216,7 +216,7 @@ public class DPTreeLikelihood extends GenericTreeLikelihood implements PluginLis
                 logP += distr.getCurrentLogP();
             }
             return logP;
-        } catch (RejectedExecutionException e) {
+        } catch (RejectedExecutionException | InterruptedException e) {
             useThreads = false;
             //System.err.println("Stop using threads: " + e.getMessage());
             // refresh thread pool
@@ -226,7 +226,7 @@ public class DPTreeLikelihood extends GenericTreeLikelihood implements PluginLis
     }
 
 
-    private double calculateLogPUsingThreadsEvenly() throws Exception {
+    private double calculateLogPUsingThreadsEvenly()  {
 
         try {
 
@@ -276,7 +276,7 @@ public class DPTreeLikelihood extends GenericTreeLikelihood implements PluginLis
                 logP += distr.getCurrentLogP();
             }
             return logP;
-        } catch (RejectedExecutionException e) {
+        } catch (RejectedExecutionException | InterruptedException e) {
             useThreadsEvenly = false;
             System.err.println("Stop using threads: " + e.getMessage());
             // refresh thread pool

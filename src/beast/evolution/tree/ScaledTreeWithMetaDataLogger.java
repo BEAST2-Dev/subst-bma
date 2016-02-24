@@ -18,7 +18,7 @@ public class ScaledTreeWithMetaDataLogger  extends TreeWithMetaDataLogger implem
     private double scaleFactor;
 
 	@Override
-	public void initAndValidate() throws Exception{
+	public void initAndValidate() {
 		super.initAndValidate();
         scaler = m_scaler.get();
         scaleParameter = scalerParameterInput.get();

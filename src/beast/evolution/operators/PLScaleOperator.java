@@ -24,7 +24,7 @@ public class PLScaleOperator extends ScaleOperator{
         treeInput.setRule(Input.Validate.OPTIONAL);
     }
 
-    public void initAndValidate() throws Exception {
+    public void initAndValidate()  {
         super.initAndValidate();
     }
 

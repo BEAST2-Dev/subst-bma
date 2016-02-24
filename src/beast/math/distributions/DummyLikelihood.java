@@ -18,7 +18,7 @@ public class DummyLikelihood extends Distribution {
 	public void initAndValidate() {}
 
 	@Override
-	public double calculateLogP() throws Exception {
+	public double calculateLogP()  {
 		return 0.0;
 	}
 

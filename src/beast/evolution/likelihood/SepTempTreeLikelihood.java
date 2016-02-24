@@ -36,7 +36,7 @@ public class SepTempTreeLikelihood extends TempTreeLikelihood{
         this.dpNtdRateSepSiteModel = dpNtdRateSepSiteModel;
 
     }
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         dpNtdRateSepSiteModel = dpNtdRateSepSiteModelInput.get();
         super.initAndValidate();
     }

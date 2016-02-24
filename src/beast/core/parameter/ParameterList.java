@@ -164,7 +164,7 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
 
     }
 
-    public void splitParameter(int pIndex, int newPIndex, double newValue)throws Exception{
+    public void splitParameter(int pIndex, int newPIndex, double newValue){
         startEditing(null);
         QuietRealParameter newParameter = new QuietRealParameter(new Double[]{newValue});
         newParameter.setBounds(getLower(), getUpper());
@@ -178,7 +178,7 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
 
     }
 
-    public void splitParameter(int pIndex, int newPIndex, Double[] newValue) throws Exception{
+    public void splitParameter(int pIndex, int newPIndex, Double[] newValue) {
         startEditing(null);
         QuietRealParameter newParameter = new QuietRealParameter(newValue);
         newParameter.setBounds(getLower(), getUpper());
@@ -191,7 +191,7 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
 
     }
 
-    public void splitParameter(int pIndex, double value1, int newPIndex, double value2) throws Exception{
+    public void splitParameter(int pIndex, double value1, int newPIndex, double value2) {
         startEditing(null);
         QuietRealParameter newParameter = new QuietRealParameter(new Double[]{value2});
         newParameter.setBounds(getLower(), getUpper());
@@ -208,7 +208,7 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
 
 
 
-    public void splitParameter(int pIndex, int dim, double value1, int newPIndex, Double[] values2) throws Exception{
+    public void splitParameter(int pIndex, int dim, double value1, int newPIndex, Double[] values2) {
         startEditing(null);
         QuietRealParameter newParameter = new QuietRealParameter(values2);
         newParameter.setBounds(getLower(), getUpper());
@@ -221,7 +221,7 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
 
     }
 
-    public void splitParameter(int pIndex,  Double[] values1, int newPIndex, Double[] values2) throws Exception{
+    public void splitParameter(int pIndex,  Double[] values1, int newPIndex, Double[] values2) {
         startEditing(null);
         QuietRealParameter newParameter = new QuietRealParameter(values2);
         newParameter.setBounds(getLower(), getUpper());
@@ -495,7 +495,7 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
     }
 
     @Override
-    public void init(PrintStream out) throws Exception {
+    public void init(PrintStream out) {
         int dimParam = getDimension();
         if(dimParam == 0){
             out.print(getID()+"\t");
@@ -529,7 +529,7 @@ public class ParameterList extends StateNode implements PluginList, Recycle {
         return parameterList.size();
     }
 
-    public int scale(double fScale) throws Exception{
+    public int scale(double fScale) {
         if(parameterList.size() > 0){
             for(RealParameter parameter:parameterList){
                 parameter.scale(fScale);

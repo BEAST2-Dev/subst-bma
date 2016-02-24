@@ -12,18 +12,18 @@ public class QuietRealParameter extends RealParameter{
 
     }
 
-    public void initAndValidate() throws Exception{
+    public void initAndValidate() {
         super.initAndValidate();
     }
 
-    public QuietRealParameter(Double value) throws Exception{
+    public QuietRealParameter(Double value) {
         super(new Double[]{value});
 
     }
 
 
 
-    public QuietRealParameter(Double[] values) throws Exception{
+    public QuietRealParameter(Double[] values) {
         super(values);
 
     }

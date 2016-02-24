@@ -23,7 +23,7 @@ public class NtdBMATest extends TestCase {
         double getLogAT();
         double getLogGC();
         double getLogGT();
-        QuietRealParameter getModelChoose() throws Exception;
+        QuietRealParameter getModelChoose() ;
 
         double getDistance();
 
@@ -60,7 +60,7 @@ public class NtdBMATest extends TestCase {
             return Math.log(0.5);
         }
 
-        public QuietRealParameter getModelChoose() throws Exception{
+        public QuietRealParameter getModelChoose() {
             QuietRealParameter modelChoose = new QuietRealParameter();
             modelChoose.initByName(
                     "value", "3",
@@ -112,7 +112,7 @@ public class NtdBMATest extends TestCase {
             return Math.log(0.5);
         }
 
-        public QuietRealParameter getModelChoose() throws Exception{
+        public QuietRealParameter getModelChoose() {
             QuietRealParameter modelChoose = new QuietRealParameter();
             modelChoose.initByName(
                     "value", "4",
@@ -166,7 +166,7 @@ public class NtdBMATest extends TestCase {
             return Math.log(0.8);
         }
 
-        public QuietRealParameter getModelChoose() throws Exception{
+        public QuietRealParameter getModelChoose() {
             QuietRealParameter modelChoose = new QuietRealParameter();
             modelChoose.initByName(
                     "value", "5",
@@ -219,7 +219,7 @@ public class NtdBMATest extends TestCase {
             return Math.log(0.5);
         }
 
-        public QuietRealParameter getModelChoose() throws Exception{
+        public QuietRealParameter getModelChoose() {
             QuietRealParameter modelChoose = new QuietRealParameter();
             modelChoose.initByName(
                     "value", "3",
@@ -273,7 +273,7 @@ public class NtdBMATest extends TestCase {
             return Math.log(0.5);
         }
 
-        public QuietRealParameter getModelChoose() throws Exception{
+        public QuietRealParameter getModelChoose() {
             QuietRealParameter modelChoose = new QuietRealParameter();
             modelChoose.initByName(
                     "value", "4",
@@ -328,7 +328,7 @@ public class NtdBMATest extends TestCase {
             return Math.log(0.8);
         }
 
-        public QuietRealParameter getModelChoose() throws Exception{
+        public QuietRealParameter getModelChoose() {
             QuietRealParameter modelChoose = new QuietRealParameter();
             modelChoose.initByName(
                     "value", "5",
@@ -354,7 +354,7 @@ public class NtdBMATest extends TestCase {
 
     Instance[] all = {test0,test1,test2,test3,test4,test5};
 
-    public void testNtdBMA() throws Exception{
+    public void testNtdBMA() {
         for (Instance test : all) {
 
             QuietRealParameter logKappa = new QuietRealParameter();
